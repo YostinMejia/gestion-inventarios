@@ -1,0 +1,14 @@
+<main>
+    @for (tienda of tiendas; track $index) {
+    <ul>
+        <li>Tienda: {{ tienda.nombre }}</li>
+        <li>Propietario {{ tienda.propietario }}</li>
+        <li>Direccion: {{ tienda.direccion }}</li>
+        <li>Id: {{ tienda.id }}</li>
+    </ul>
+
+    }@empty {
+    <h1>No hay tiendas</h1>
+    }
+
+</main>
