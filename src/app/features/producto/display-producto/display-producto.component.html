@@ -1,0 +1,12 @@
+@if (producto) {
+
+    <ul>
+        <li> Nombre: {{producto.nombre}}</li>
+        <li> Precio: {{producto.precio}}</li>
+        <li> Categoria: {{producto.categoria}}</li>
+        <li> Descripcion: {{producto.descripcion}}</li>
+        <li> Imagen: {{producto.imagen}}</li>
+</ul>
+}@else {
+    <h1>No existe ese producto</h1>
+}
