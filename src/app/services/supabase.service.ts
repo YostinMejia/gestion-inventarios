@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {createClient, SupabaseClient } from '@supabase/supabase-js'
 import { environment } from '../../enviroments/enviroment'
-import { Producto, Tienda } from '../interfaces/interface';
+import { Producto, SearchProductoDto, Tienda } from '../interfaces/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +20,8 @@ export class SupabaseService {
     return this.supabase.from('tienda').insert(tienda)
   }
 
-  async getProducto(id:string){
-    if (id.trim() == ""){ throw Error("Debes ingresar un id")}
-    return this.supabase.from('producto').select().limit(1)
+  async getProducto(busqueda:SearchProductoDto, limit:number){
+    return this.supabase.from('producto').select().like("nombre",`%${busqueda.nombre}%`).lte("precio",busqueda.maxPrecio).gte("precio",busqueda.minPrecio).like("categoria",`%${busqueda.categoria}%`).limit(limit)
   }
 
   async getProductoById(id:number){

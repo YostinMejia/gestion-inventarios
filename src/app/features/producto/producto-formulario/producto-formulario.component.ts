@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SupabaseService } from '../../services/supabase.service';
-import { Producto } from '../../interfaces/interface';
-import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { SupabaseService } from '../../../services/supabase.service';
+import { Producto } from '../../../interfaces/interface';
 
 @Component({
   selector: 'app-producto-formulario',

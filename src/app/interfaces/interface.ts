@@ -14,3 +14,10 @@ export interface Tienda{
     categoria:string
     imagen:string
   }
+
+export interface SearchProductoDto{
+  nombre:string
+  categoria:string
+  maxPrecio:number
+  minPrecio:number
+}

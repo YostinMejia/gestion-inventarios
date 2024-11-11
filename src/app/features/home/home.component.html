@@ -1,0 +1,22 @@
+<main>
+
+    <section>
+
+        <app-search-producto (productoEvent)="receiveProductos($event)"></app-search-producto>
+    </section>
+
+    @for (producto of productos; track $index) {
+
+    <ul>
+        <li> Nombre: {{producto.nombre}}</li>
+        <li> Precio: {{producto.precio}}</li>
+        <li> Categoria: {{producto.categoria}}</li>
+        <li> Descripcion: {{producto.descripcion}}</li>
+        <li> Imagen: {{producto.imagen}}</li>
+    </ul>
+
+    }@empty {
+    <h1> No hay productos disponibles</h1>
+    }
+
+</main>
