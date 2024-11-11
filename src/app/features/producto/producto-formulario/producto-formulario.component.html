@@ -1,46 +1,48 @@
+<app-header></app-header>
+
 <main>
 
     <div>
         <li>Id Tienda: {{producto.id_tienda}}</li>
-</div>
+    </div>
 
 <form (ngSubmit)="onSubmit()" class="form-container">
 
-
-
     <div>
-        <label for="nombre">Nombre:</label>
-        <input type="text" [(ngModel)]="producto.nombre" name="nombre" required>
+        <label for="nombre">Nombre</label>
+        <input type="text" [(ngModel)]="producto.nombre" name="nombre" required placeholder="Nombre">
     </div>
 
     <div>
-        <label for="descripcion">Descripción:</label>
-        <input type="text" [(ngModel)]="producto.descripcion" name="descripcion" required>
-    </div>
-
-
-    <div>
-        <label for="precio">Precio:</label>
-        <input type="number" [(ngModel)]="producto.precio" name="precio" required>
+        <label for="descripcion">Descripción</label>
+        <input type="text" [(ngModel)]="producto.descripcion" name="descripcion" required  placeholder="Descripción">
     </div>
 
 
     <div>
-        <label for="pais">Cantidad:</label>
-        <input type="number" [(ngModel)]="producto.cantidad" name="cantidad" required>
+        <label for="precio">Precio</label>
+        <input type="number" [(ngModel)]="producto.precio" name="precio" required placeholder="Precio">
+    </div>
+
+
+    <div>
+        <label for="pais">Cantidad</label>
+        <input type="number" [(ngModel)]="producto.cantidad" name="cantidad" required placeholder="Cantidad">
     </div>
 
     <div>
-        <label for="imagen">Imagen:</label>
+        <label for="imagen">Imagen</label>
         <input type="text" [(ngModel)]="producto.imagen" name="imagen" required>
     </div>
 
 
     <div>
-        <label for="categoria">Categoría:</label>
-        <input type="text" [(ngModel)]="producto.categoria" name="categoria" required>
+        <label for="categoria">Categoría</label>
+        <input type="text" [(ngModel)]="producto.categoria" name="categoria" required placeholder="Categoría">
     </div>
 
     <button type="submit" class="primary">Guardar producto</button>
 </form>
 </main>
+
+<app-footer></app-footer>
