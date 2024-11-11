@@ -6,6 +6,7 @@ export interface Tienda{
   }
   
   export interface Producto{
+    id:number
     id_tienda:number
     nombre:string
     descripcion:string

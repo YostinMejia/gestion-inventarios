@@ -17,6 +17,7 @@ export class ProductoFormularioComponent {
   update: boolean = false;
 
   producto: Producto = {
+    id:0,
     id_tienda: 0,
     nombre: "",
     descripcion: "",
