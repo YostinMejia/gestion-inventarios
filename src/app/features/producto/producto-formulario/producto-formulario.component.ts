@@ -38,7 +38,8 @@ export class ProductoFormularioComponent {
       this.producto.precio == 0 ||
       this.producto.categoria == "" ||
       this.producto.imagen == "" || this.imagenFile == undefined){ throw Error("Debes rellenar todo los campos")}
-      this.producto.imagen = `${this.producto.id_tienda}\\${this.producto.nombre}\\${this.producto.imagen.slice("C:\\fakepath\\".length)}`
+      this.producto.imagen = `${this.producto.id_tienda}/${this.producto.nombre}/${this.producto.imagen}`
+      
       if (this.update) {
         this.actualizarProducto(this.producto);
       } else {
@@ -63,12 +64,14 @@ export class ProductoFormularioComponent {
     }
   }
 
-  // async getProductoImagen(id: number):Promise<void> {
-  //   const response = await this.supabaseService.g(id)
-  //   if (response.data){
-  //     this.producto = response.data[0]
-  //   }
-  // }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+        this.imagenFile = input.files[0];
+        this.producto.imagen = input.files[0].name
+    }
+}
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async params =>{

@@ -22,18 +22,22 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     const response = await this.supabaseService.getProducto({nombre:"",categoria:"",maxPrecio:Number.MAX_SAFE_INTEGER,minPrecio:0}, 10)
     if (response.data){
-      this.productos = response.data      
+      this.productos = response.data   
+      await Promise.all(
+        this.productos.map(async (producto) => {
+            const { data } = await this.supabaseService.getImagen(producto.imagen);
+            producto.imagen = data?.publicUrl || ''
+        })
+    );
     }
   }
   
-
+  //En caso de que se haga una busqueda, se ejecuta esta función
   receiveProductos($event:Producto[]){
     this.productos = $event
   }
 
   verProducto(id:number){
-    console.log("redir");
-    
     this.router.navigate(['/producto',id ]);
   }
   

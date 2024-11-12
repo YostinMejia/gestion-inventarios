@@ -40,13 +40,11 @@ export class SupabaseService {
   }
 
   async saveImagen(file: File, filePath: string) {
-    const sanitizedFilePath = filePath.replace(/\\/g, "/");
-    return this.supabase.storage.from('productos_imgs').upload(sanitizedFilePath, file);
+    return this.supabase.storage.from('productos_imgs').upload(filePath, file);
   }
 
-  async getImagen(filePath: string) {
-    const sanitizedFilePath = filePath.replace(/\\/g, "/");
-    return this.supabase.storage.from('productos_imgs').download(sanitizedFilePath)
+  async getImagen(filePath: string):Promise<{data:{publicUrl:string}}> {
+    return  this.supabase.storage.from('productos_imgs').getPublicUrl(filePath)
   }
 
 }

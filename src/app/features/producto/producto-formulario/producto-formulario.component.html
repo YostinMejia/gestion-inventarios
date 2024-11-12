@@ -32,9 +32,14 @@
 
     <div>
         <label for="imagen">Imagen</label>
-        <input type="text" [(ngModel)]="producto.imagen" name="imagen" required>
+        <input type="text" [(ngModel)]="producto.imagen" name="imagen" disabled>
     </div>
 
+
+    <div>
+        <label for="imagen">Imagen</label>
+        <input type="file" (change)="onFileSelected($event)" required name="imagen">
+    </div>
 
     <div>
         <label for="categoria">Categoría</label>
