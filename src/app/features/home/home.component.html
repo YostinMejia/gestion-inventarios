@@ -1,7 +1,9 @@
+
+<app-header></app-header>
+
 <main>
 
     <section>
-
         <app-search-producto (productoEvent)="receiveProductos($event)"></app-search-producto>
     </section>
 
@@ -10,8 +12,8 @@
     <ul>
         <li> Nombre: {{producto.nombre}}</li>
         <li> Precio: {{producto.precio}}</li>
-        <li> Categoria: {{producto.categoria}}</li>
-        <li> Descripcion: {{producto.descripcion}}</li>
+        <li> Categoría: {{producto.categoria}}</li>
+        <li> Descripción: {{producto.descripcion}}</li>
         <li> Imagen: {{producto.imagen}}</li>
         <button type="submit" (click)="verProducto(producto.id!)">Ver producto</button>
     </ul>
@@ -21,3 +23,5 @@
     }
 
 </main>
+
+<app-footer></app-footer>

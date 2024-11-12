@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SupabaseService } from '../../../services/supabase.service';
 import { Producto } from '../../../interfaces/interface';
+import { FooterComponent } from "../../../layout/footer/footer.component";
+import { HeaderComponent } from "../../../layout/header/header.component";
 
 @Component({
   selector: 'app-producto-formulario',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, FooterComponent, HeaderComponent],
   templateUrl: './producto-formulario.component.html',
   styleUrl: './producto-formulario.component.css'
 })
