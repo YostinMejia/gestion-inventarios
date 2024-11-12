@@ -31,8 +31,13 @@
     </div>
 
     <div>
+        <label for="imagen_url">Imagen url:</label>
+        <input type="text" disabled [(ngModel)]="producto.imagen" name="imagen_url" required>
+    </div>
+
+    <div>
         <label for="imagen">Imagen:</label>
-        <input type="text" [(ngModel)]="producto.imagen" name="imagen" required>
+        <input type="file" [(ngModel)]="imagenFile" [(ngModel)]="producto.imagen" name="imagen" required>
     </div>
 
 

@@ -21,8 +21,16 @@ export class DisplayProductoComponent implements OnInit{
       const response = await this.supabaseService.getProductoById(Number(params.get("id")));   
       if(response.data){
         this.producto = response.data[0]
+        const bucket = await this.supabaseService.getImagen(this.producto!.imagen)
+        if (bucket.data) {
+          const blobUrl = URL.createObjectURL(bucket.data);
+          this.producto!.imagen = blobUrl; // Asigna la URL de Blob a la propiedad imagen
+          console.log(blobUrl);
+          
+        }
       }
-    });
+      })
+    
   }
 
 }

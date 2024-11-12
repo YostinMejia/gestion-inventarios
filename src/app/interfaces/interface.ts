@@ -6,7 +6,7 @@ export interface Tienda{
   }
   
   export interface Producto{
-    id:number
+    id?:number
     id_tienda:number
     nombre:string
     descripcion:string
@@ -15,6 +15,7 @@ export interface Tienda{
     categoria:string
     imagen:string
   }
+
 
 export interface SearchProductoDto{
   nombre:string

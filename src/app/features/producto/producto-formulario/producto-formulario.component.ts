@@ -17,31 +17,31 @@ export class ProductoFormularioComponent {
   update: boolean = false;
 
   producto: Producto = {
-    id:0,
     id_tienda: 0,
     nombre: "",
     descripcion: "",
     precio: 0,
     cantidad: 0,
     categoria: "",
-    imagen: ""
+    imagen: "",
   };
+  imagenFile:File| undefined
 
   constructor(private supabaseService: SupabaseService, private route: ActivatedRoute) { }
 
   onSubmit(): void {
+    
     if (this.producto.id_tienda <0 || this.producto.nombre == "" ||
       this.producto.descripcion == "" ||
       this.producto.precio == 0 ||
       this.producto.categoria == "" ||
-      this.producto.imagen == ""){ throw Error("Debes rellenar todo los campos")}
-
+      this.producto.imagen == "" || this.imagenFile == undefined){ throw Error("Debes rellenar todo los campos")}
+      this.producto.imagen = `${this.producto.id_tienda}\\${this.producto.nombre}\\${this.producto.imagen.slice("C:\\fakepath\\".length)}`
       if (this.update) {
         this.actualizarProducto(this.producto);
       } else {
-        console.log("Creando producto");
+        this.crearProducto(this.producto, this.imagenFile);
         
-        this.crearProducto(this.producto);
       }
   }
 
@@ -49,8 +49,9 @@ export class ProductoFormularioComponent {
     this.supabaseService.actualizarProducto(producto)
   }
 
-  async crearProducto(producto: Producto) {
-    this.supabaseService.crearProducto(producto)
+  async crearProducto(producto: Producto, imagen:File) {    
+    await this.supabaseService.crearProducto(producto)
+    this.supabaseService.saveImagen(imagen,producto.imagen)
   }
 
   async getProducto(id: number):Promise<void> {
@@ -59,6 +60,13 @@ export class ProductoFormularioComponent {
       this.producto = response.data[0]
     }
   }
+
+  // async getProductoImagen(id: number):Promise<void> {
+  //   const response = await this.supabaseService.g(id)
+  //   if (response.data){
+  //     this.producto = response.data[0]
+  //   }
+  // }
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async params =>{
