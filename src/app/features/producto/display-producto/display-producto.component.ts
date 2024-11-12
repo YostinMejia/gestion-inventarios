@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../../../interfaces/interface';
 import { SupabaseService } from '../../../services/supabase.service';
+import { HeaderComponent } from "../../../layout/header/header.component";
+import { FooterComponent } from "../../../layout/footer/footer.component";
 
 @Component({
   selector: 'app-display-producto',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent, FooterComponent],
   templateUrl: './display-producto.component.html',
   styleUrl: './display-producto.component.css'
 })

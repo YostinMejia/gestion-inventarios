@@ -70,6 +70,29 @@ h1 {
     text-align: center;
 }
 
+button[type="submit"] {
+    background: linear-gradient(90deg, #2f9c56, #56abda);
+    color: white;
+    font-size: 14px; 
+    font-weight: bold;
+    padding: 8px 12px; 
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 20%; 
+    display: block; 
+    margin: 0 auto;
+    text-align: center; 
+}
+
+
+
+button[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+
 
 @media (max-width: 768px) {
     main {
