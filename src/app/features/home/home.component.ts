@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
   }
 
   async eliminarProducto(id: number) {
+<<<<<<< Updated upstream
     Swal.fire({
       title: "Eliminar",
       text: "¿Está seguro de eliminar el producto seleccionado?",
@@ -61,6 +62,10 @@ export class HomeComponent implements OnInit {
 
         }
       });
+=======
+    await this.supabaseService.eliminarProducto(id)
+    window.location.reload()
+>>>>>>> Stashed changes
   }
 
 

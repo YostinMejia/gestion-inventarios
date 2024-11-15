@@ -1,4 +1,3 @@
-
 <app-header></app-header>
 
 <main>
@@ -10,7 +9,7 @@
     @for (producto of productos; track $index) {
 
     <ul>
-        <img [src]="producto.imagen" alt="Imagen del producto"/>
+        <img [src]="producto.imagen" alt="Imagen del producto" />
         <li> Nombre: {{producto.nombre}}</li>
         <li> Precio: {{producto.precio}}</li>
         <li> Categoría: {{producto.categoria}}</li>

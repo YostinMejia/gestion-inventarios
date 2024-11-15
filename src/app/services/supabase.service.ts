@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import { AuthError, AuthSession, createClient, SupabaseClient } from '@supabase/supabase-js'
 import { environment } from '../../enviroments/enviroment'
 import { Producto, SearchProductoDto, Tienda } from '../interfaces/interface';
 
@@ -7,9 +7,56 @@ import { Producto, SearchProductoDto, Tienda } from '../interfaces/interface';
   providedIn: 'root'
 })
 export class SupabaseService {
+
   private supabase: SupabaseClient
 
+  _session: AuthSession | null = null
+
   constructor() { this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey) }
+
+  async signUpNewUser(email: string, password: string) {
+
+    const regexPwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!regexPwd.test(password)) {
+      return "La contraseña debe tener al menos 6 caracteres, incluyendo un dígito, una letra minúscula y una letra mayúscula.";
+    }
+
+    if (!regexEmail.test(email)) {
+      return "El correo electrónico debe ser válido, por ejemplo: usuario@ejemplo.com.";
+    }
+
+    const { data, error } = await this.supabase.auth.signUp({
+      email: email,
+      password: password,
+      
+    })
+    console.log(error?.message);
+    
+    this._session = data.session
+    return this._session
+  }
+
+  async signInWithEmail(email: string, password: string) {
+    const { data } = await this.supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    })
+    this._session = data.session
+    return this._session
+  }
+
+  signOut() {
+    return this.supabase.auth.signOut()
+  }
+
+  get session() {
+    this.supabase.auth.getSession().then(({ data }) => {
+      this._session = data.session
+    })
+    return this._session
+  }
 
   async getTiendas() {
     return this.supabase.from('tienda').select()
@@ -43,12 +90,12 @@ export class SupabaseService {
     return this.supabase.storage.from('productos_imgs').upload(filePath, file);
   }
 
-  async getImagen(filePath: string):Promise<{data:{publicUrl:string}}> {
-    return  this.supabase.storage.from('productos_imgs').getPublicUrl(filePath)
+  async getImagen(filePath: string): Promise<{ data: { publicUrl: string } }> {
+    return this.supabase.storage.from('productos_imgs').getPublicUrl(filePath)
   }
 
-  async eliminarProducto(id:number){
-    return this.supabase.from('producto').delete().eq("id",id)
+  async eliminarProducto(id: number) {
+    return this.supabase.from('producto').delete().eq("id", id)
   }
 
 }

@@ -23,3 +23,15 @@ export interface SearchProductoDto{
   maxPrecio:number
   minPrecio:number
 }
+
+export enum Rol {
+  administrador = "admin",
+  cliente ="cliente"
+}
+
+export interface Usuario{
+  email:string
+  password: string
+  nombre: string
+  rol: Rol
+}
