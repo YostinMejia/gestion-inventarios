@@ -41,8 +41,9 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/producto', id]);
   }
 
-  eliminarProducto(id: number, idTienda: number) {
-    //crear metodo para eliminar
+  async eliminarProducto(id: number) {
+    await this.supabaseService.eliminarProducto(id)
+    this.router.navigate(['home'])
   }
 
   actualizarProducto(id: number, idTienda: number) {

@@ -16,7 +16,7 @@
         <li> Categoría: {{producto.categoria}}</li>
         <li> Descripción: {{producto.descripcion}}</li>
         <button type="submit" (click)="verProducto(producto.id!)">Ver producto</button>
-        <button type="submit" (click)="eliminarProducto(producto.id!, producto.id_tienda)">Eliminar producto</button>
+        <button type="submit" (click)="eliminarProducto(producto.id!)">Eliminar producto</button>
         <button type="submit" (click)="actualizarProducto(producto.id!, producto.id_tienda)">Actualizar</button>
     </ul>
 

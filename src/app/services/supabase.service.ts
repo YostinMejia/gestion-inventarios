@@ -47,5 +47,9 @@ export class SupabaseService {
     return  this.supabase.storage.from('productos_imgs').getPublicUrl(filePath)
   }
 
+  async eliminarProducto(id:number){
+    return this.supabase.from('producto').delete().eq("id",id)
+  }
+
 }
 
