@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../interfaces/interface';
 import { SupabaseService } from '../../services/supabase.service';
 import { SearchProductoComponent } from "../producto/search-producto/search-producto.component";
@@ -15,30 +15,37 @@ import { FooterComponent } from "../../layout/footer/footer.component";
 })
 export class HomeComponent implements OnInit {
 
-  productos:Producto[]=[]
+  productos: Producto[] = []
 
-  constructor(private supabaseService:SupabaseService, private router:Router){}
+  constructor(private supabaseService: SupabaseService, private router: Router) { }
 
   async ngOnInit() {
-    const response = await this.supabaseService.getProducto({nombre:"",categoria:"",maxPrecio:Number.MAX_SAFE_INTEGER,minPrecio:0}, 10)
-    if (response.data){
-      this.productos = response.data   
+    const response = await this.supabaseService.getProducto({ nombre: "", categoria: "", maxPrecio: Number.MAX_SAFE_INTEGER, minPrecio: 0 }, 10)
+    if (response.data) {
+      this.productos = response.data
       await Promise.all(
         this.productos.map(async (producto) => {
-            const { data } = await this.supabaseService.getImagen(producto.imagen);
-            producto.imagen = data?.publicUrl || ''
+          const { data } = await this.supabaseService.getImagen(producto.imagen);
+          producto.imagen = data?.publicUrl || ''
         })
-    );
+      );
     }
   }
-  
+
   //En caso de que se haga una busqueda, se ejecuta esta función
-  receiveProductos($event:Producto[]){
+  receiveProductos($event: Producto[]) {
     this.productos = $event
   }
 
-  verProducto(id:number){
-    this.router.navigate(['/producto',id ]);
+  verProducto(id: number) {
+    this.router.navigate(['/producto', id]);
   }
-  
+
+  eliminarProducto(id: number, idTienda: number) {
+    //crear metodo para eliminar
+  }
+
+  actualizarProducto(id: number, idTienda: number) {
+    this.router.navigate(['tiendas', idTienda, 'producto', id]);
+  }
 }
