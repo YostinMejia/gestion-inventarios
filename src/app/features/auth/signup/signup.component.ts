@@ -47,6 +47,6 @@ export class SignupComponent {
       });
     }
 
-    this.router.navigate(['home']);
+    this.router.navigate(['home'], { queryParams: { rol: auth.rol } });
   }
 }

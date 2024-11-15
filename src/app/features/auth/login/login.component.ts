@@ -20,7 +20,7 @@ export class LoginComponent {
     password:""
   }
 
-  constructor(private supabaseService: SupabaseService, private Router: Router) { }
+  constructor(private supabaseService:SupabaseService, private router: Router){}
 
   async onSubmit() {
     const auth = await this.supabaseService.signInWithEmail(this.usuario)
@@ -32,15 +32,8 @@ export class LoginComponent {
         showConfirmButton: false,
         timer: 1500
       });
-    }else {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Usuario creado con éxito",
-        showConfirmButton: false,
-        timer: 1500
-      });
     }
+    this.router.navigate(['home'],{queryParams:{rol:auth.rol}});
   }
 
 
