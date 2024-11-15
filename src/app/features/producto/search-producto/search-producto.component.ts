@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SupabaseService } from '../../../services/supabase.service';
 import { Producto, SearchProductoDto } from '../../../interfaces/interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-search-producto',
@@ -32,6 +33,13 @@ export class SearchProductoComponent {
     if (response.data) {
       this.productoEvent.emit(response.data)
     }
+    Swal.fire({
+      position: "top-end",
+      title: "Buscando",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    
   }
 
 }

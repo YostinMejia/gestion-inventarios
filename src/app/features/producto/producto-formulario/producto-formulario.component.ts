@@ -6,6 +6,7 @@ import { SupabaseService } from '../../../services/supabase.service';
 import { Producto } from '../../../interfaces/interface';
 import { FooterComponent } from "../../../layout/footer/footer.component";
 import { HeaderComponent } from "../../../layout/header/header.component";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-producto-formulario',
@@ -50,11 +51,26 @@ export class ProductoFormularioComponent {
 
   async actualizarProducto(producto: Producto) {
     this.supabaseService.actualizarProducto(producto)
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Actualizado con éxito",
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
   async crearProducto(producto: Producto, imagen:File) {    
     await this.supabaseService.crearProducto(producto)
     this.supabaseService.saveImagen(imagen,producto.imagen)
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Creado con éxito",
+      showConfirmButton: false,
+      timer: 1500
+    });
+ 
   }
 
   async getProducto(id: number):Promise<void> {

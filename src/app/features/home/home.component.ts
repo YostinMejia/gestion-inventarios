@@ -5,6 +5,7 @@ import { SearchProductoComponent } from "../producto/search-producto/search-prod
 import { Router } from '@angular/router';
 import { HeaderComponent } from "../../layout/header/header.component";
 import { FooterComponent } from "../../layout/footer/footer.component";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -42,11 +43,30 @@ export class HomeComponent implements OnInit {
   }
 
   async eliminarProducto(id: number) {
-    await this.supabaseService.eliminarProducto(id)
-    this.router.navigate(['home'])
+    Swal.fire({
+      title: "Eliminar",
+      text: "¿Está seguro de eliminar el producto seleccionado?",
+      icon: "warning",
+      iconColor: "#219ebc",
+      showCancelButton: true,
+      confirmButtonColor: "#023047",
+      cancelButtonColor: "#d00000",
+      confirmButtonText: "Sí",
+      cancelButtonText: "No"
+    })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          await this.supabaseService.eliminarProducto(id)
+          window.location.reload()
+
+        }
+      });
   }
+
 
   actualizarProducto(id: number, idTienda: number) {
     this.router.navigate(['tiendas', idTienda, 'producto', id]);
+    
   }
+
 }
