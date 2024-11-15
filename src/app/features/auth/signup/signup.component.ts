@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SupabaseService } from '../../../services/supabase.service';
-import { Rol, Usuario } from '../../../interfaces/interface';
+import {  Usuario } from '../../../interfaces/interface';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -15,11 +15,11 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent {
 
-  usuario: Usuario ={
-    email :"",
-    nombre:"",
+  usuario: Usuario = {
+    email: "",
+    nombre: "",
     password: "",
-    rol:Rol.cliente
+    rol: "cliente"
 
   }
 
@@ -27,8 +27,7 @@ export class SignupComponent {
   constructor(private supabaseService:SupabaseService, private router: Router){}
 
   async onSubmit(){
-    //console.log("creando usuario");
-    const auth = await this.supabaseService.signUpNewUser(this.usuario.email,this.usuario.password)
+    const auth = await this.supabaseService.signUpNewUser(this.usuario)
     
     if (auth.error) {
       Swal.fire({

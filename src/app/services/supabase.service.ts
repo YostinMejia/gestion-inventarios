@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthError, AuthSession, createClient, SupabaseClient } from '@supabase/supabase-js'
 import { environment } from '../../enviroments/enviroment'
-import { Producto, SearchProductoDto, Tienda } from '../interfaces/interface';
+import { CrearUsuarioDto, IniciarSesionDto, Producto, SearchProductoDto, Tienda, Usuario } from '../interfaces/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,38 +14,46 @@ export class SupabaseService {
 
   constructor() { this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey) }
 
-  async signUpNewUser(email: string, password: string) {
+  async signUpNewUser(usuario: Usuario) {
 
     const regexPwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!regexPwd.test(password)) {
-      return {"error":"La contraseña debe tener al menos 6 caracteres, incluyendo un dígito, una letra minúscula y una letra mayúscula."};
-      
+    if (!regexPwd.test(usuario.password)) {
+      return { "error": "La contraseña debe tener al menos 6 caracteres, incluyendo un dígito, una letra minúscula y una letra mayúscula." };
+
     }
 
-    if (!regexEmail.test(email)) {
-      return{"error" :"El correo electrónico debe ser válido, por ejemplo: usuario@ejemplo.com."};
+    if (!regexEmail.test(usuario.email)) {
+      return { "error": "El correo electrónico debe ser válido, por ejemplo: usuario@ejemplo.com." };
     }
 
     const { data, error } = await this.supabase.auth.signUp({
-      email: email,
-      password: password,
-      
+      email: usuario.email,
+      password: usuario.password,
     })
-    console.log(error?.message);
-    
+
+    await this.crearUsuario({
+      nombre: usuario.nombre,
+      email: usuario.email,
+      rol: usuario.rol
+    })
+
     this._session = data.session
-    return {"session":this._session, "error": null}
+    return { "session": this._session, "error": null }
   }
 
-  async signInWithEmail(email: string, password: string) {
+  async signInWithEmail(usuario:IniciarSesionDto) {
     const { data } = await this.supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+      email: usuario.email,
+      password: usuario.password,
     })
     this._session = data.session
     return this._session
+  }
+
+  async crearUsuario(usuario: CrearUsuarioDto) {
+    return this.supabase.from("usuario").insert(usuario)
   }
 
   signOut() {

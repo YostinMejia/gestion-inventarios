@@ -62,14 +62,12 @@ export class HomeComponent implements OnInit {
 
         }
       });
-    await this.supabaseService.eliminarProducto(id)
-    window.location.reload()
+
   }
 
 
   actualizarProducto(id: number, idTienda: number) {
     this.router.navigate(['tiendas', idTienda, 'producto', id]);
-    
   }
 
 }

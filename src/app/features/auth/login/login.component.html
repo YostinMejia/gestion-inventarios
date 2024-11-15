@@ -1,0 +1,19 @@
+<main>
+    <form (ngSubmit)="onSubmit()" class="form-container">
+
+
+
+        <div>
+            <label for="email">Email</label>
+            <input type="email" [(ngModel)]="usuario.email" name="email" required placeholder="Ingresa el Email">
+        </div>
+
+        <div>
+            <label for="password">Contraseña</label>
+            <input type="password" [(ngModel)]="usuario.password" name="password" required
+                placeholder="Ingresa la Contraseña">
+        </div>
+
+        <button type="submit" class="primary">Guardar producto</button>
+    </form>
+</main>
