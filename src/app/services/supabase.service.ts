@@ -49,6 +49,8 @@ export class SupabaseService {
       password: usuario.password,
     })
     this._session = data.session
+    console.log(this._session);
+    
     return this._session
   }
 
