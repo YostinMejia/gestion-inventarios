@@ -44,14 +44,14 @@ export class SupabaseService {
   }
 
   async signInWithEmail(usuario:IniciarSesionDto) {
-    const { data } = await this.supabase.auth.signInWithPassword({
+    const { data, error} = await this.supabase.auth.signInWithPassword({
       email: usuario.email,
       password: usuario.password,
     })
     this._session = data.session
     console.log(this._session);
-    
-    return this._session
+    if(error) return {"error":error.message}
+    return {"data":this._session, "error":null}
   }
 
   async crearUsuario(usuario: CrearUsuarioDto) {
