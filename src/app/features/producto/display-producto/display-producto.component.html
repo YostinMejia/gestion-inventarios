@@ -1,12 +1,21 @@
-@if (producto) {
+<app-header></app-header>
+<main>
+    @if (producto) {
+        <section>
+            <div class="product-details">
+                <h1>Detalles del Producto</h1>
+                <ul>
+                    <li>Nombre: {{producto.nombre}}</li>
+                    <li>Precio: {{producto.precio}}</li>
+                    <li>Categoría: {{producto.categoria}}</li>
+                    <li>Descripción: {{producto.descripcion}}</li>
+                </ul>
+            </div>
+            <img src="{{producto.imagen}}" alt="Imagen del producto" class="product-image">
+        </section>
+    } @else {
+        <h1>No existe ese producto</h1>
+    }
+</main>
+<app-footer></app-footer>
 
-    <ul>
-        <img [src]="producto.imagen" alt="Imagen del producto"/>
-        <li> Nombre: {{producto.nombre}}</li>
-        <li> Precio: {{producto.precio}}</li>
-        <li> Categoria: {{producto.categoria}}</li>
-        <li> Descripcion: {{producto.descripcion}}</li>
-</ul>
-}@else {
-    <h1>No existe ese producto</h1>
-}

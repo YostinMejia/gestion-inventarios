@@ -29,24 +29,8 @@ header:hover {
     background: linear-gradient(90deg, #0288d1, #56abda);
 }
 
-header .logo {
-    display: flex;
-    align-items: center; 
-    margin-right: 20px; 
 
-}
-
-header .logo-img {
-    max-width:250px;
-    height: auto;
-    transition: transform 0.3s ease-in-out;
-}
-
-header .logo-img:hover {
-    transform: scale(1.1);
-}
-
-header .logo h2 {
+header h2 {
     font-size: 25px; 
     color: white;
     margin-left: 20px; 
