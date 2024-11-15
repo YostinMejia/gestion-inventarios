@@ -20,11 +20,12 @@ export class SupabaseService {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!regexPwd.test(password)) {
-      return "La contraseña debe tener al menos 6 caracteres, incluyendo un dígito, una letra minúscula y una letra mayúscula.";
+      return {"error":"La contraseña debe tener al menos 6 caracteres, incluyendo un dígito, una letra minúscula y una letra mayúscula."};
+      
     }
 
     if (!regexEmail.test(email)) {
-      return "El correo electrónico debe ser válido, por ejemplo: usuario@ejemplo.com.";
+      return{"error" :"El correo electrónico debe ser válido, por ejemplo: usuario@ejemplo.com."};
     }
 
     const { data, error } = await this.supabase.auth.signUp({
@@ -35,7 +36,7 @@ export class SupabaseService {
     console.log(error?.message);
     
     this._session = data.session
-    return this._session
+    return {"session":this._session, "error": null}
   }
 
   async signInWithEmail(email: string, password: string) {

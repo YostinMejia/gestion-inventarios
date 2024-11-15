@@ -43,9 +43,9 @@ export class HomeComponent implements OnInit {
   }
 
   async eliminarProducto(id: number) {
-<<<<<<< Updated upstream
     Swal.fire({
       title: "Eliminar",
+      position: "center",
       text: "¿Está seguro de eliminar el producto seleccionado?",
       icon: "warning",
       iconColor: "#219ebc",
@@ -62,10 +62,8 @@ export class HomeComponent implements OnInit {
 
         }
       });
-=======
     await this.supabaseService.eliminarProducto(id)
     window.location.reload()
->>>>>>> Stashed changes
   }
 
 

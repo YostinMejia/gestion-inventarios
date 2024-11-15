@@ -34,7 +34,8 @@ export class SearchProductoComponent {
       this.productoEvent.emit(response.data)
     }
     Swal.fire({
-      position: "top-end",
+      position: "center",
+      icon: "info",
       title: "Buscando",
       showConfirmButton: false,
       timer: 1500
