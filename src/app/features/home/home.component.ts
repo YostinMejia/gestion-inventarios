@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../interfaces/interface';
 import { SupabaseService } from '../../services/supabase.service';
 import { SearchProductoComponent } from "../producto/search-producto/search-producto.component";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from "../../layout/header/header.component";
 import { FooterComponent } from "../../layout/footer/footer.component";
 import Swal from 'sweetalert2';
@@ -17,10 +17,15 @@ import Swal from 'sweetalert2';
 export class HomeComponent implements OnInit {
 
   productos: Producto[] = []
-
-  constructor(private supabaseService: SupabaseService, private router: Router) { }
+  rol:string|null=null;
+  constructor(private supabaseService: SupabaseService, private router: Router,private route: ActivatedRoute) { }
 
   async ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.rol = params['rol'];
+    });
+  
+
     const response = await this.supabaseService.getProducto({ nombre: "", categoria: "", maxPrecio: Number.MAX_SAFE_INTEGER, minPrecio: 0 }, 10)
     if (response.data) {
       this.productos = response.data

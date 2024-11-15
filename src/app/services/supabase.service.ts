@@ -40,20 +40,35 @@ export class SupabaseService {
     })
 
     this._session = data.session
-    return { "session": this._session, "error": null }
+    return { "session": this._session, "rol": usuario.rol, "error": null }
   }
 
-  async signInWithEmail(usuario:IniciarSesionDto) {
-    const { data } = await this.supabase.auth.signInWithPassword({
+  async signInWithEmail(usuario: IniciarSesionDto) {
+    const { data, error } = await this.supabase.auth.signInWithPassword({
       email: usuario.email,
       password: usuario.password,
-    })
-    this._session = data.session
-    console.log(this._session);
-    
-    return this._session
-  }
+    });
 
+    if (error) {
+      return { "error": error.message };
+    }
+
+    const user = data.user;
+    const { data: userData, error: userError } = await this.supabase
+      .from('usuario').select('rol').eq('email', user.email).single();
+
+    if (userError) {
+      console.error("Error al obtener el rol del usuario:", userError.message);
+      return { "error": "No se pudo obtener el rol del usuario." };
+    }
+
+    const userRole = userData.rol;
+
+    this._session = data.session;
+
+    return { "session": this._session, "rol": userRole };
+  }
+  
   async crearUsuario(usuario: CrearUsuarioDto) {
     return this.supabase.from("usuario").insert(usuario)
   }

@@ -3,6 +3,7 @@ import { SupabaseService } from '../../../services/supabase.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IniciarSesionDto } from '../../../interfaces/interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,11 @@ export class LoginComponent {
     password:""
   }
 
-  constructor(private supabaseService: SupabaseService) { }
+  constructor(private supabaseService:SupabaseService, private router: Router){}
 
   async onSubmit() {
     const auth = await this.supabaseService.signInWithEmail(this.usuario)
+    this.router.navigate(['home'], { queryParams: { rol: auth.rol } });
   }
-
 
 }
